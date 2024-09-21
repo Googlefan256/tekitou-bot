@@ -1,21 +1,20 @@
 from dotenv import load_dotenv
 from os import environ
 from discord.ext import commands
-from discord import Interaction
+from discord import Intents
 
 load_dotenv()
-bot = commands.Bot(command_prefix="!")
+bot = commands.Bot(command_prefix="!", intents=Intents.all())
 
 
-@bot.tree.command()
-async def ping(ctx: Interaction):
-    await ctx.response.send_message("pong!")
+@bot.command()
+async def ping(ctx: commands.Context):
+    await ctx.reply("Pong!")
 
 
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user.name}")
-    await bot.tree.sync()
     print("Slash commands synced!")
 
 
